@@ -10,5 +10,5 @@ package src;
  * @author user
  */
 public class Algo {
-    
+    GUI gui = new GUI();
 }
