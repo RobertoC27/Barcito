@@ -18,7 +18,7 @@ public class TempMain
 {
     public static void main(String args[])
     {
-        JFrame frame = new JFrame();
+        /*JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Connector c = new Connector();
         //"SELECT * FROM \"Cliente\";" toda la tabla cliente
@@ -30,7 +30,7 @@ public class TempMain
         JScrollPane scrollPane = new JScrollPane(toShow);
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setSize(300, 150);
-        frame.setVisible(true);
-        GUI gui = new GUI();
+        frame.setVisible(true);*/
+        new GUI().setVisible(true);
     }
 }
