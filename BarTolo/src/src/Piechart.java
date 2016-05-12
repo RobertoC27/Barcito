@@ -25,6 +25,7 @@ public class Piechart extends ApplicationFrame
    {
       super( title ); 
       setContentPane(GetPieChart( title, ColumnNames, Values));
+      this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
    }
    private static PieDataset createDataset(ArrayList<String> ColumnNames, ArrayList<Double> Values) 
    {

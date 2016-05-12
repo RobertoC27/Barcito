@@ -31,7 +31,7 @@ public class Barchart extends ApplicationFrame
          createDataset(barras, valorBarras, tiposValor),          
          PlotOrientation.VERTICAL,           
          true, true, false);
-         
+      this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
       setContentPane( chartPanel ); 

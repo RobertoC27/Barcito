@@ -650,7 +650,7 @@ public class Connector {
      
     public ArrayList<Double> getPointValues()
     {
-        String Query1 = "SELECT avg(\"Puntos\") FROM \"Tarjeta\";";
+        String Query1 = "SELECT avg(puntos) FROM \"Tarjeta\";";
      
         
         

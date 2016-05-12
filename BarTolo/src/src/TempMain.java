@@ -30,7 +30,7 @@ public class TempMain
         //JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE \"ID\" > 997;");
         //JScrollPane scrollPane = new JScrollPane(toShow);
         new GUI().setVisible(true);
-        JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE \"ID\" > 997;");
+        JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE id > 997;");
         JScrollPane scrollPane = new JScrollPane(toShow);
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setSize(300, 150);
