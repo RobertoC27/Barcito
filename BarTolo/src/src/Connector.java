@@ -255,5 +255,460 @@ public class Connector
         }
         System.out.println("Table Altered Succesfully");
     }
+    
+    public ArrayList<String> getGenreColumnNames()
+    {
+        ArrayList<String> aret = new ArrayList<String>();
+        String Query = "SELECT descripcion FROM \"Genero\";";
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try 
+        {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query);
+            
+            while(rs.next())
+            {
+                String desName = rs.getString("descripcion");
+                aret.add(desName);
+            }
+                      
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aret;
+    }
+    
+    public ArrayList<String> getStateColumnNames()
+    {
+        ArrayList<String> aret = new ArrayList<String>();
+        String Query = "SELECT descripcion FROM \"Estado_Civil\";";
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try 
+        {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query);
+            
+            while(rs.next())
+            {
+                String desName = rs.getString("descripcion");
+                aret.add(desName);
+            }
+                      
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aret;
+    }
+    
+    public ArrayList<Double> getGenreValues()
+    {
+        String Query1 = "SELECT COUNT(*) FROM \"Cliente\" WHERE \"genero\" = 1;";
+        String Query2 = "SELECT COUNT(*) FROM \"Cliente\" WHERE \"genero\" = 2;";
+        String Query3 = "SELECT COUNT(*) FROM \"Cliente\" WHERE \"genero\" = 3;";
+        String Query4 = "SELECT COUNT(*) FROM \"Cliente\" WHERE \"genero\" = 4;";
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query3);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query4);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+    
+    public ArrayList<Double> getAgeValues()
+    {
+        String Query1 = "Select COUNT(*) FROM \"Cliente\" WHERE edad >= 18 AND edad < 30;";
+        String Query2 = "Select COUNT(*) FROM \"Cliente\" WHERE edad >= 30 AND edad < 65;";
+        String Query3 = "Select COUNT(*) FROM \"Cliente\" WHERE edad >= 65;";
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query3);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+    
+     public ArrayList<Double> getfrecValues()
+    {
+        String Query1 = "SELECT COUNT(*) FROM \"Cliente\" WHERE frecuente = true;";
+        String Query2 = "SELECT COUNT(*) FROM \"Cliente\" WHERE frecuente = false;";
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+     
+    public ArrayList<Double> getStateValues()
+    {
+        String Query1 = "SELECT COUNT(*) FROM \"Cliente\" WHERE estado_civil = 1;";
+        String Query2 = "SELECT COUNT(*) FROM \"Cliente\" WHERE estado_civil = 2;";
+        String Query3 = "SELECT COUNT(*) FROM \"Cliente\" WHERE estado_civil = 3;";
+        String Query4 = "SELECT COUNT(*) FROM \"Cliente\" WHERE estado_civil = 4;";
+        
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query3);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query4);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+    
+     public ArrayList<Double> getValetValues()
+    {
+        String Query1 = "SELECT COUNT(*) FROM \"Cliente\" WHERE valet = true;";
+        String Query2 = "SELECT COUNT(*) FROM \"Cliente\" WHERE valet = false;";
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+     
+    public ArrayList<Double> getPointValues()
+    {
+        String Query1 = "SELECT avg(\"Puntos\") FROM \"Tarjeta\";";
+     
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("avg");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    } 
+    
+    public ArrayList<Double> getTwitterValues()
+    {
+        String Query1 = "SELECT COUNT(*) FROM \"Info_Contacto\" WHERE twitter is not null;";
+        String Query2 = "SELECT COUNT(*) FROM \"Info_Contacto\" WHERE twitter is null;";
+        
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        Connection c = null;
+        Statement stmt = null;
+      try {
+         Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
+            "postgres", "Lionelmessi1309");
+         c.setAutoCommit(false);
+      } catch (Exception e) {
+         e.printStackTrace();
+         System.err.println(e.getClass().getName()+": "+e.getMessage());
+         System.exit(0);
+      }
+      System.out.println("Opened database successfully");
+        try {
+            stmt = c.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //AQUI ESTA LA QUERY, LO QUE MANDE AQUI SE MUESTRA
+            ResultSet rs = stmt.executeQuery(Query1);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            rs = stmt.executeQuery(Query2);
+            while(rs.next())
+            {
+                int Count = rs.getInt("count");
+                double Count1 = (double) Count;
+                values.add(Count1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
 }
 

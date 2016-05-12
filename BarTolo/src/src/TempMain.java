@@ -31,6 +31,8 @@ public class TempMain
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setSize(300, 150);
         frame.setVisible(true);*/
-        new GUI().setVisible(true);
+        //new GUI().setVisible(true);
+        Reporter elReportero = new Reporter();
+        elReportero.GenerarReporteCliente();
     }
 }
