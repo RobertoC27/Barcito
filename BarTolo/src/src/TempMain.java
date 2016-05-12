@@ -19,8 +19,6 @@ public class TempMain
 {
     public static void main(String args[])
     {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Connector c = new Connector();
         //"SELECT * FROM \"Cliente\";" toda la tabla cliente
         //c.UpdateTable("UPDATE \"Cliente\" SET edad = 99 WHERE edad >= 100;");
@@ -30,13 +28,6 @@ public class TempMain
         //JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE \"ID\" > 997;");
         //JScrollPane scrollPane = new JScrollPane(toShow);
         new GUI().setVisible(true);
-        JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE id > 997;");
-        JScrollPane scrollPane = new JScrollPane(toShow);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.setSize(300, 150);
-        frame.setVisible(true);
-        //new GUI().setVisible(true);
-        Reporter elReportero = new Reporter();
-        elReportero.GenerarReporteCliente();
+
     }
 }

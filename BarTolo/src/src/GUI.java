@@ -21,6 +21,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -166,6 +167,8 @@ public class GUI extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Barcito ChiroBoix");
@@ -885,7 +888,19 @@ public class GUI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Edit");
+        jMenu3.setText("Ver Reportes");
+
+        jMenuItem6.setText("Twitter");
+        jMenu3.add(jMenuItem6);
+
+        jMenuItem7.setText("Clientes");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -1104,6 +1119,20 @@ public class GUI extends javax.swing.JFrame {
         jTable1.setModel(view.getModel());
         System.out.println(View);*/
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE id > 997;");
+        JScrollPane scrollPane = new JScrollPane(toShow);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setSize(300, 150);
+        frame.setVisible(true);
+        //new GUI().setVisible(true);
+        Reporter elReportero = new Reporter();
+        elReportero.GenerarReporteCliente();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
        
     
     /**
@@ -1463,6 +1492,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
