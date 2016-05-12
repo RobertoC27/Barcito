@@ -6,6 +6,8 @@
 package src;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.DocumentEvent;
@@ -18,12 +20,15 @@ import javax.swing.event.DocumentListener;
 public class Filtrado extends javax.swing.JFrame {
     Connector c;
     String condicion;
+    String campo;
+    String update;
 
     /**
      * Creates new form Filtrado
      */
     public Filtrado(String name, boolean Tipo) {
         super(name);
+        campo = name;
         initComponents();
         this.setVisible(true);
         validarCampos();
@@ -44,17 +49,21 @@ public class Filtrado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", "<=", "=", "<>", ">=", ">", "contiene" }));
-        jComboBox2.setSelectedIndex(2);
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", "<=", "=", "<>", ">=", ">" }));
         jComboBox2.setToolTipText("");
 
         jLabel1.setText("Nuevo Valor:");
-        jLabel1.setEnabled(false);
 
-        jTextField1.setEnabled(false);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Aceptar Condicion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -63,30 +72,42 @@ public class Filtrado extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1)))
-                        .addGap(26, 26, 26)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1)
+                        .addGap(80, 80, 80))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,13 +117,17 @@ public class Filtrado extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -111,15 +136,12 @@ public class Filtrado extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String operador;
-        if (jComboBox2.getModel().getSelectedItem().toString().equals("contiene"))
-            operador = "in";
-        else
-            operador = jComboBox2.getModel().getSelectedItem().toString();
-            
-        condicion = jComboBox1.getModel().getSelectedItem() + " " + operador + " " + jComboBox3.getModel().getSelectedItem() +" ";
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -157,16 +179,101 @@ public class Filtrado extends javax.swing.JFrame {
     }
     
     public void validarCampos(){
-        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+        ArrayList<String> Operadores = new ArrayList();
+        Operadores.add(">");
+        Operadores.add("<");
+        Operadores.add("<=");
+        Operadores.add(">=");
+        Operadores.add("<>");
+        jComboBox1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String c1 = "'"+jComboBox1.getModel().getSelectedItem().toString()+"'";
+                String op = jComboBox2.getModel().getSelectedItem().toString();
+                String c3 = "'"+jComboBox3.getModel().getSelectedItem().toString()+"'";
+                if (((!c1.replace("'", "").equals(campo)) && (!c3.replace("'", "").equals(campo))) && (Operadores.contains(op))){
+                    if ((op.equals("<=")) || (op.equals("<"))) {
+                        condicion = c1 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c3;
+                    } else if ((op.equals(">=")) || (op.equals(">"))){
+                        condicion = c3 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c1;
+                    } else if ((op.equals("=")) || (op.equals("<>"))) 
+                        condicion = c1 + " " + op + " " + campo;
+                    } else if (c1.replace("'", "").equals(campo)){
+                    condicion = campo + " " + op + " " + c3;
+                } else if (c3.replace("'", "").equals(campo)){
+                    condicion = c1 + " " + op + " " + campo;
+                } else {
+                    condicion = campo + " " + op + " " + campo;
+                }
+                jLabel2.setText(condicion);
+            }
+        });
+        
+        jComboBox3.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String c1 = "'"+jComboBox1.getModel().getSelectedItem().toString()+"'";
+                String op = jComboBox2.getModel().getSelectedItem().toString();
+                String c3 = "'"+jComboBox3.getModel().getSelectedItem().toString()+"'";
+                if (((!c1.replace("'", "").equals(campo)) && (!c3.replace("'", "").equals(campo))) && (Operadores.contains(op))){
+                    if ((op.equals("<=")) || (op.equals("<"))) {
+                        condicion = c1 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c3;
+                    } else if ((op.equals(">=")) || (op.equals(">"))){
+                        condicion = c3 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c1;
+                    } else if ((op.equals("=")) || (op.equals("<>"))) 
+                        condicion = c1 + " " + op + " " + campo;
+                    } else if (c1.replace("'", "").equals(campo)){
+                    condicion = campo + " " + op + " " + c3;
+                } else if (c3.replace("'", "").equals(campo)){
+                    condicion = c1 + " " + op + " " + campo;
+                } else {
+                    condicion = campo + " " + op + " " + campo;
+                }
+                jLabel2.setText(condicion);
+            }
+        });
+        
+        jComboBox2.addItemListener(new ItemListener() {
 
             @Override
+            public void itemStateChanged(ItemEvent e) {
+                String c1 = "'"+jComboBox1.getModel().getSelectedItem().toString()+"'";
+                String op = jComboBox2.getModel().getSelectedItem().toString();
+                String c3 = "'"+jComboBox3.getModel().getSelectedItem().toString()+"'";
+                if (((!c1.replace("'", "").equals(campo)) && (!c3.replace("'", "").equals(campo))) && (Operadores.contains(op))){
+                    if ((op.equals("<=")) || (op.equals("<"))) {
+                        condicion = c1 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c3;
+                    } else if ((op.equals(">=")) || (op.equals(">"))){
+                        condicion = c3 + " " + op + " " + campo + " AND " + campo + " " + op + " " + c1;
+                    } else if ((op.equals("=")) || (op.equals("<>"))) 
+                        condicion = c1 + " " + op + " " + campo;
+                } else if (c1.replace("'", "").equals(campo)){
+                    condicion = campo + " " + op + " " + c3;
+                } else if (c3.replace("'", "").equals(campo)){
+                    condicion = c1 + " " + op + " " + campo;
+                } else {
+                    condicion = campo + " " + op + " " + campo;
+                }
+                jLabel2.setText(condicion);
+            }
+        });
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            
+            @Override
             public void insertUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if (jTextField1.getText().replace(" ","").replace("_", "").length() > 0)
+                    update = campo + " = '" + jTextField1.getText()+"'";
+                jLabel3.setText(update);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if (jTextField1.getText().length() == 0){
+                    update = campo + " = " + campo;
+                } else{
+                    update = campo + " = '" + jTextField1.getText()+"'";
+                }
+                jLabel3.setText(update);
             }
 
             @Override
@@ -174,9 +281,9 @@ public class Filtrado extends javax.swing.JFrame {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
+        jTextField1.setText(update);
     }
-    
-    
+        
     public void setListas(ArrayList<String> Elementos){
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         DefaultComboBoxModel model2 = new DefaultComboBoxModel();
@@ -208,6 +315,8 @@ public class Filtrado extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
