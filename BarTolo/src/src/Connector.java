@@ -272,7 +272,7 @@ public class Connector {
             if (rs != null) {
                 ResultSetMetaData columns = rs.getMetaData();
                 int ColumnLength = columns.getColumnCount();
-                for (int i = 1; i < ColumnLength; i++) {
+                for (int i = 1; i <= ColumnLength; i++) {
                     NombreCampos.add(columns.getColumnName(i));
                 }
                 stmt.close();
