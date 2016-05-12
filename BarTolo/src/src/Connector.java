@@ -23,8 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-public class Connector 
-{
+public class Connector {
     
     public void ConnectDB()
     {
@@ -32,8 +31,8 @@ public class Connector
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-            "postgres", "Lionelmessi1309");
+            .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+            "postgres", "root");
          c.setAutoCommit(false);
       } catch (Exception e) {
          e.printStackTrace();
@@ -50,8 +49,8 @@ public class Connector
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-            "postgres", "Lionelmessi1309");
+            .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+            "postgres", "root");
          c.setAutoCommit(false);
       } catch (Exception e) {
          e.printStackTrace();
@@ -158,8 +157,8 @@ public class Connector
        try {
        Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-            "postgres", "Lionelmessi1309");
+            .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+            "postgres", "root");
          c.setAutoCommit(false);
          System.out.println("Opened database successfully");
 
@@ -183,8 +182,8 @@ public class Connector
         try {
            Class.forName("org.postgresql.Driver");
            c = DriverManager
-              .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-              "postgres", "Lionelmessi1309");
+              .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+              "postgres", "root");
            c.setAutoCommit(false);
            System.out.println("Opened database successfully");
 
@@ -207,8 +206,8 @@ public class Connector
         try {
            Class.forName("org.postgresql.Driver");
            c = DriverManager
-              .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-              "postgres", "Lionelmessi1309");
+              .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+              "postgres", "root");
            c.setAutoCommit(false);
            System.out.println("Opened database successfully");
 
@@ -238,8 +237,8 @@ public class Connector
         try {
            Class.forName("org.postgresql.Driver");
            c = DriverManager
-              .getConnection("jdbc:postgresql://localhost:5432/Proyecto2",
-              "postgres", "Lionelmessi1309");
+              .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+              "postgres", "root");
            c.setAutoCommit(false);
            System.out.println("Opened database successfully");
 
@@ -254,6 +253,37 @@ public class Connector
            System.exit(0);
         }
         System.out.println("Table Altered Succesfully");
+    }
+    
+    public ArrayList<String> getColumnNames(String TableName){
+        ArrayList<String> NombreCampos = new ArrayList();
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/Barcito",
+                "postgres", "root");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM " +TableName);
+            if (rs != null) {
+                ResultSetMetaData columns = rs.getMetaData();
+                int ColumnLength = columns.getColumnCount();
+                for (int i = 1; i < ColumnLength; i++) {
+                    NombreCampos.add(columns.getColumnName(i));
+                }
+                stmt.close();
+                c.commit();
+                c.close();
+            }
+        } catch (Exception e) {
+           System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+           System.exit(0);
+        }
+        return NombreCampos;
     }
 }
 
