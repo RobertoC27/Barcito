@@ -29,9 +29,14 @@ public class TempMain
         //c.AlterTable("ALTER TABLE \"Cliente\" ADD nombrePareja varchar;");
         //JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE \"ID\" > 997;");
         //JScrollPane scrollPane = new JScrollPane(toShow);
-//        frame.add(scrollPane, BorderLayout.CENTER);
-//        frame.setSize(300, 150);
-//        frame.setVisible(true);
         new GUI().setVisible(true);
+        JTable toShow = c.GetInfoFromQuery("SELECT * FROM \"Cliente\" WHERE \"ID\" > 997;");
+        JScrollPane scrollPane = new JScrollPane(toShow);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setSize(300, 150);
+        frame.setVisible(true);
+        //new GUI().setVisible(true);
+        Reporter elReportero = new Reporter();
+        elReportero.GenerarReporteCliente();
     }
 }
